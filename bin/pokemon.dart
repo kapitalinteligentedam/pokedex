@@ -73,4 +73,23 @@ class Pokemon {
       App.inicioApp();
     }
   }
+
+  static imprimirInfo(Pokemon pokemon) {
+    stdout.writeln("Nombre: ${pokemon.nombre}");
+    stdout.writeln("Estadísticas:");
+    stdout.writeln("    Vida:             ${pokemon.vida}");
+    stdout.writeln("    Ataque:           ${pokemon.ataque}");
+    stdout.writeln("    Defensa:          ${pokemon.defensa}");
+    stdout.writeln("    Ataque especial:  ${pokemon.ataqueEspecial}");
+    stdout.writeln("    Defensa especial: ${pokemon.defensaEspecial}");
+    stdout.writeln("    Velocidad:        ${pokemon.velocidad}");
+    // stdout.writeln("Tipos:");
+    // for(var elemento in pokemon.tipos){
+    //   stdout.writeln("    $elemento");
+    // }
+    // stdout.writeln("Habilidades:");
+    // for(Habilidad elemento in pokemon.habilidades){
+    //   stdout.writeln("    ${elemento.nombre?.toUpperCase()}");
+    // }
+  }
 }
