@@ -63,7 +63,7 @@ class App {
     imprimirInfo(pokemon);
   }
   
-  static combate() async {
+  static combate() async { 
     stdout.writeln('********** COMBATE POKEMON **********');
     stdout.writeln('El pokemon 1 es:');
     int random = Random().nextInt(1301);
