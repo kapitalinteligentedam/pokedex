@@ -1,6 +1,5 @@
 import "dart:io";
 import "combate.dart";
-import "habilidad.dart";
 import "pokemon.dart";
 
 class App {
@@ -34,6 +33,12 @@ class App {
     return opcion;
   }
 
+  static biblioteca() async {
+    String respuesta = _pedirNombre();
+    Pokemon pokemon = await Pokemon().obtenerPokemon(respuesta);
+    Pokemon.imprimirInfo(pokemon);
+  }
+
   static int? turno(Pokemon pokemon) {
     int? opcion;
     do {
@@ -43,12 +48,6 @@ class App {
       opcion = int.tryParse(stdin.readLineSync() ?? 'e');
     } while (opcion == null);
     return opcion;
-  }
-
-  static biblioteca() async {
-    String respuesta = _pedirNombre();
-    Pokemon pokemon = await Pokemon().obtenerPokemon(respuesta);
-    Pokemon.imprimirInfo(pokemon);
   }
 
   static combate() async {
