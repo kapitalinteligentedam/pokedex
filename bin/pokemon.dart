@@ -5,29 +5,29 @@ import "package:http/http.dart" as http;
 import "dart:io";
 
 class Pokemon {
-  String? nombre;
+  String? nombre = 'John Doe';
   List<String> tipos = [];
   List<Habilidad> habilidades = [];
-  int? vida;
-  int? ataque;
-  int? defensa;
-  int? ataqueEspecial;
-  int? defensaEspecial;
-  int? velocidad;
+  int vida = 0;
+  int ataque = 0;
+  int defensa = 0;
+  int ataqueEspecial = 0;
+  int defensaEspecial = 0;
+  int velocidad = 0;
 
   Pokemon();
   Pokemon.fromAPI(datos, listaHabilidades) {
     nombre = datos['name'];
-    for(var elemento in datos['types']){
+    for (var elemento in datos['types']) {
       tipos.add(elemento['type']['name']);
     }
-    for(var elemento in listaHabilidades){
+    for (var elemento in listaHabilidades) {
       habilidades.add(elemento);
     }
-    for(var elemento in datos['stats']){
-      switch(elemento['stat']['name']){
+    for (var elemento in datos['stats']) {
+      switch (elemento['stat']['name']) {
         case 'hp':
-          vida = elemento['base_stat'];
+          vida = elemento['base_stat'] ?? 0;
           break;
         case 'attack':
           ataque = elemento['base_stat'];
@@ -48,10 +48,11 @@ class Pokemon {
     }
   }
 
-  listaDeHabilidades(datos)async{
+  listaDeHabilidades(datos) async {
     List<Habilidad> lista = [];
-    for(var elemento in datos['abilities']){
-      lista.add(await Habilidad().obtenerHabilidad(elemento['ability']['name']));
+    for (var elemento in datos['abilities']) {
+      lista
+          .add(await Habilidad().obtenerHabilidad(elemento['ability']['name']));
     }
     return lista;
   }
@@ -59,16 +60,17 @@ class Pokemon {
   obtenerPokemon(String nombre) async {
     Uri url = Uri.parse("https://pokeapi.co/api/v2/pokemon/$nombre");
     var respuesta = await http.get(url);
-    try{
-      if(respuesta.statusCode == 200){
-        var body = json.decode(respuesta.body); 
+    try {
+      if (respuesta.statusCode == 200) {
+        var body = json.decode(respuesta.body);
         List lista = await listaDeHabilidades(body);
-        Pokemon pokemon = Pokemon.fromAPI(body,lista);
+        Pokemon pokemon = Pokemon.fromAPI(body, lista);
         return pokemon;
-      } else if(respuesta.statusCode == 404){
-        throw("El pokemon que buscas no existe!");
-      } else throw("Ha habido un error de conexión");
-    } catch(e) {
+      } else if (respuesta.statusCode == 404) {
+        throw ("El pokemon que buscas no existe!");
+      } else
+        throw ("Ha habido un error de conexión");
+    } catch (e) {
       stdout.writeln(e);
       App.inicioApp();
     }
@@ -76,6 +78,8 @@ class Pokemon {
 
   static imprimirInfo(Pokemon pokemon) {
     stdout.writeln("Nombre: ${pokemon.nombre}");
+    stdout.writeln(
+        "Nivel: ${pokemon.vida + pokemon.ataque + pokemon.defensa + pokemon.ataqueEspecial + pokemon.defensaEspecial + pokemon.velocidad}");
     stdout.writeln("Estadísticas:");
     stdout.writeln("    Vida:             ${pokemon.vida}");
     stdout.writeln("    Ataque:           ${pokemon.ataque}");
