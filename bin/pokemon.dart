@@ -14,6 +14,7 @@ class Pokemon {
   int ataqueEspecial = 0;
   int defensaEspecial = 0;
   int velocidad = 0;
+  bool coraza = false;
 
   Pokemon();
   Pokemon.fromAPI(datos, listaHabilidades) {
@@ -79,7 +80,7 @@ class Pokemon {
   static imprimirInfo(Pokemon pokemon) {
     stdout.writeln("Nombre: ${pokemon.nombre}");
     stdout.writeln(
-        "Nivel: ${pokemon.vida + pokemon.ataque + pokemon.defensa + pokemon.ataqueEspecial + pokemon.defensaEspecial + pokemon.velocidad}");
+        "Nivel: ${pokemon.vida + pokemon.ataque + pokemon.defensa + pokemon.velocidad}");
     stdout.writeln("Estadísticas:");
     stdout.writeln("    Vida:             ${pokemon.vida}");
     stdout.writeln("    Ataque:           ${pokemon.ataque}");
